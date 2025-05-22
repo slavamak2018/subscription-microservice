@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.29.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1748011396317-1" author="slava">
+        <createTable tableName="subscriptions">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_subscriptions"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="DATETIME"/>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subscription_type" type="SMALLINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="from_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="till_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748011396317-2" author="slava">
+        <createTable tableName="user_subscriptions">
+            <column name="subscription_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_subscriptions"/>
+            </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_user_subscriptions"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748011396317-3" author="slava">
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_users"/>
+            </column>
+            <column name="created_by" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified_date" type="DATETIME"/>
+            <column name="user_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1748011396317-4" author="slava">
+        <addForeignKeyConstraint baseColumnNames="subscription_id" baseTableName="user_subscriptions"
+                                 constraintName="fk_usesub_on_subscription" referencedColumnNames="id"
+                                 referencedTableName="subscriptions"/>
+    </changeSet>
+    <changeSet id="1748011396317-5" author="slava">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="user_subscriptions"
+                                 constraintName="fk_usesub_on_user" referencedColumnNames="id"
+                                 referencedTableName="users"/>
+    </changeSet>
+
+    <changeSet id="sql-0" author="slava">
+        <sql>
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('3daa7ee1-ffd0-4e90-96cd-a851934cd20c', 'Admin', current_timestamp, current_timestamp, 'user1', 'user1@mail.ru', 'user address 1', '+7(111) 111 1111', 'user1_fn', 'user1_ln');
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('3529334f-368b-4ca6-8bd6-21cc3d2cfa07', 'Admin', current_timestamp, current_timestamp, 'user2', 'user2@mail.ru', 'user address 2', '+7(111) 111 1111', 'user2_fn', 'user2_ln');
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('4a28231f-0153-474f-939c-1022bde029fc', 'Admin', current_timestamp, current_timestamp, 'user3', 'user3@mail.ru', 'user address 3', '+7(111) 111 1111', 'user3_fn', 'user3_ln');
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('27153262-7181-4741-9a66-990581a12ef6', 'Admin', current_timestamp, current_timestamp, 'user4', 'user4@mail.ru', 'user address 4', '+7(111) 111 1111', 'user4_fn', 'user4_ln');
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('a3ed1359-f114-44de-8890-af6a507bce00', 'Admin', current_timestamp, current_timestamp, 'user5', 'user5@mail.ru', 'user address 5', '+7(111) 111 1111', 'user5_fn', 'user5_ln');
+            INSERT into users (id, created_by, created_date, modified_date, user_name, email, address, phone, first_name, last_name) VALUES ('006288f4-15cd-496e-8feb-2e9080a73da7', 'Admin', current_timestamp, current_timestamp, 'user6', 'user6@mail.ru', 'user address 6', '+7(111) 111 1111', 'user6_fn', 'user6_ln');
+        </sql>
+    </changeSet>
+    <changeSet id="sql-1" author="slava">
+        <sql>
+            INSERT into subscriptions (id, created_by, created_date, modified_date, title, description, subscription_type, from_date, till_date) VALUES ('4750d335-b2cc-4994-84c4-f4d1a518d03c', 'Admin', current_timestamp, current_timestamp, 'YouTube Premium', 'YouTube Premium', 0, current_timestamp, current_timestamp);
+            INSERT into subscriptions (id, created_by, created_date, modified_date, title, description, subscription_type, from_date, till_date) VALUES ('789564d6-f4ac-410b-8acb-6a3ad796db60', 'Admin', current_timestamp, current_timestamp, 'VK Музыка', 'VK Музыка', 1, current_timestamp, current_timestamp);
+            INSERT into subscriptions (id, created_by, created_date, modified_date, title, description, subscription_type, from_date, till_date) VALUES ('e63bf693-60a9-4547-a6b2-aed75e9d4d7e', 'Admin', current_timestamp, current_timestamp, 'Яндекс.Плюс', 'Яндекс.Плюс', 2, current_timestamp, current_timestamp);
+            INSERT into subscriptions (id, created_by, created_date, modified_date, title, description, subscription_type, from_date, till_date) VALUES ('2eff9845-5a9a-46f5-aa5b-c52320314a4f', 'Admin', current_timestamp, current_timestamp, 'Netflix', 'Netflix', 3, current_timestamp, current_timestamp);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
